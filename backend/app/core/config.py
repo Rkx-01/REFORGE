@@ -1,7 +1,8 @@
 import os
 from pathlib import Path
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from typing import List
+from typing import List, Union
 
 # Calculate base path (Downloads/AI:Ml - REsume genrator/backend)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -21,6 +22,14 @@ class Settings(BaseSettings):
 
     CORS_ORIGINS: List[str] = ["*"]
 
+    @field_validator("CORS_ORIGINS", mode="before")
+    @classmethod
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
+        if isinstance(v, str) and not v.startswith("["):
+            return [i.strip() for i in v.split(",")]
+        elif isinstance(v, (list, str)):
+            return v
+        raise ValueError(v)
     model_config = SettingsConfigDict(
         env_file=os.path.join(BASE_DIR, ".env"),
         env_file_encoding="utf-8",

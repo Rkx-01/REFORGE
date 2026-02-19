@@ -231,6 +231,7 @@ export default function Home() {
                 coverLetter={coverLetter}
                 onGenerateCL={forgeCoverLetter}
                 clLoading={clLoading}
+                error={error}
               />
             )}
           </div>

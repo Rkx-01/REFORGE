@@ -44,11 +44,13 @@ export function useForge() {
   }
 
   async function forgeCoverLetter() {
-    if (!file || !jd) return
+    if (!file) return
+    const finalJd = mode === 'general' ? 'General Professional Application' : jd
+    if (!finalJd) return
     setClLoading(true)
     setError(null)
     try {
-      const { cover_letter } = await generateCoverLetter(file, jd, result?.name)
+      const { cover_letter } = await generateCoverLetter(file, finalJd, result?.name)
       setCoverLetter(cover_letter)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Cover letter generation failed')

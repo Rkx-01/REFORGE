@@ -20,6 +20,7 @@ interface Props {
   coverLetter: string | null
   onGenerateCL: () => void
   clLoading: boolean
+  error: string | null
 }
 
 export function ResumeOutput({
@@ -29,7 +30,8 @@ export function ResumeOutput({
   onChangeTemplate,
   coverLetter,
   onGenerateCL,
-  clLoading
+  clLoading,
+  error
 }: Props) {
   const [view, setView] = useState<'resume' | 'cl' | 'text'>('resume')
   const kw = data.keywords_injected ?? []
@@ -151,7 +153,15 @@ export function ResumeOutput({
         ) : view === 'text' ? (
           <RefinedTextView data={data} />
         ) : (
-          <CoverLetterView text={coverLetter || ''} name={data.name} loading={clLoading} />
+          <div className="flex flex-col items-center">
+            {error && view === 'cl' && (
+              <div className="error-msg mb-6 max-w-[600px] text-center">
+                <p className="font-bold underline mb-1 uppercase tracking-tighter">AI Service Interruption</p>
+                {error}
+              </div>
+            )}
+            <CoverLetterView text={coverLetter || ''} name={data.name} loading={clLoading} />
+          </div>
         )}
       </div>
     </div>

@@ -36,7 +36,7 @@ export function OriginalStyle({ data }: { data: Resume }) {
 
       {/* Summary */}
       <div className="mb-8">
-        <Section title="Summary" titleClassName="text-sm font-bold uppercase tracking-wider text-slate-500 border-none mb-2">
+        <Section title="Summary">
           <p className="text-[14px] leading-relaxed text-slate-800">
             {data.summary}
           </p>
@@ -46,7 +46,7 @@ export function OriginalStyle({ data }: { data: Resume }) {
       <div className="space-y-8">
         {/* Experience */}
         {data.experience.length > 0 && (
-          <Section title="Work Experience" titleClassName="text-sm font-bold uppercase tracking-wider text-slate-500 border-none mb-3">
+          <Section title="Work Experience">
             <div className="space-y-6">
               {data.experience.map((exp, i) => (
                 <div key={i}>
@@ -66,7 +66,7 @@ export function OriginalStyle({ data }: { data: Resume }) {
         )}
 
         {/* Skills */}
-        <Section title="Skills" titleClassName="text-sm font-bold uppercase tracking-wider text-slate-500 border-none mb-3">
+        <Section title="Skills">
           <div className="space-y-2">
             <div className="text-[14px]">
               <span className="font-bold text-slate-700 mr-2">Technical:</span>
@@ -81,7 +81,7 @@ export function OriginalStyle({ data }: { data: Resume }) {
 
         {/* Projects */}
         {data.projects.length > 0 && (
-          <Section title="Projects" titleClassName="text-sm font-bold uppercase tracking-wider text-slate-500 border-none mb-3">
+          <Section title="Projects">
             <div className="space-y-5">
               {data.projects.map((proj, i) => (
                 <div key={i}>
@@ -106,7 +106,7 @@ export function OriginalStyle({ data }: { data: Resume }) {
 
         {/* Education */}
         {data.education.length > 0 && (
-          <Section title="Education" titleClassName="text-sm font-bold uppercase tracking-wider text-slate-500 border-none mb-3">
+          <Section title="Education">
             <div className="space-y-4">
               {data.education.map((edu, i) => (
                 <div key={i}>
@@ -125,7 +125,7 @@ export function OriginalStyle({ data }: { data: Resume }) {
         )}
         {/* Certifications */}
         {data.certifications.length > 0 && (
-          <Section title="Certifications" titleClassName="text-sm font-bold uppercase tracking-wider text-slate-500 border-none mb-3">
+          <Section title="Certifications">
              <div className="space-y-1">
                 {data.certifications.map((cert, i) => (
                   <div key={i} className="text-[14px] text-slate-800 flex items-center gap-2">

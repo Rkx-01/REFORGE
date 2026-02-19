@@ -1,4 +1,13 @@
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000/api/v1'
+function getBase(): string {
+  let url = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'
+  url = url.replace(/\/+$/, '') // Strip trailing slashes
+  if (!url.endsWith('/api/v1')) {
+    url = `${url}/api/v1`
+  }
+  return url
+}
+
+const BASE = getBase()
 
 export async function generateResume(file: File, jd: string) {
   const fd = new FormData()
@@ -8,7 +17,7 @@ export async function generateResume(file: File, jd: string) {
   const res = await fetch(`${BASE}/generate-resume`, { method: 'POST', body: fd })
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    throw new Error(err.detail ?? `${res.status}`)
+    throw new Error(err.detail ?? `Backend Error: ${res.status}`)
   }
   return res.json()
 }
@@ -20,6 +29,9 @@ export async function generateCoverLetter(file: File, jd: string, name?: string)
   if (name) fd.append('applicant_name', name)
 
   const res = await fetch(`${BASE}/cover-letter`, { method: 'POST', body: fd })
-  if (!res.ok) throw new Error(`${res.status}`)
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error(err.detail ?? `Backend Error: ${res.status}`)
+  }
   return res.json()
 }
